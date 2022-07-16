@@ -32,7 +32,8 @@ export const Ps1 = () => {
           color: theme.brightBlue,
         }}
       >
-        {hostname}
+        Looter
+        {/* {hostname} */}
       </span>
       <span
         style={{
