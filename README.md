@@ -56,11 +56,9 @@ Here's a sample of the `config.json` file:
 {
   "bioUrl": "https://raw.githubusercontent.com/m4tt72/m4tt72/master/README.md",
   "social": {
-    "instagram": "m4tt72",
     "github": "m4tt72",
-    "linkedin": "yassinefathi"
   },
-  "theme": "gruvboxdark" // list of themes available in themes.json
+  "theme": "OceanDark" // list of themes available in themes.json
 }
 ```
 
