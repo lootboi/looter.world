@@ -1,7 +1,7 @@
 
 export const about = async (args: string[]): Promise<string> => {
   return `                                              
-I am @AltLoot, web3 enjoyer and developer based in the US.
+I am @AltLoot, Solidity enjoyer and developer based in the US.
 
 While I am an EVM maximalist, I also enjoy building things with Node.js and JavaScript.
 I got into web3 development after getting rekt yield farming but have been in crypto since 2015.

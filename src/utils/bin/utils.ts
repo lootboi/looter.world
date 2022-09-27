@@ -11,16 +11,16 @@ export const whoami = async (args: string[]): Promise<string> => {
   return 'My guest :)';
 };
 
-export const my_projects = async (args: string[]): Promise<string> => {
-  return `                                              
-See them all here: Github: https://github.com/lootboi
-*Categories coming soon*
-`;
-};
+// export const my_projects = async (args: string[]): Promise<string> => {
+//   return `                                              
+// See them all here: Github: https://github.com/lootboi
+// *Categories coming soon*
+// `;
+// };
 
 export const socials = async (args: string[]): Promise<string> => {
   return `                                              
-Twitter: https://twitter.com/AltLoot
+Twitter: <a href="https://twitter.com/AltLoot" target="_blank" class="text-light-blue dark:text-dark-blue underline">@AltLoot</a>
 `;
 };
 
