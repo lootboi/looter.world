@@ -58,7 +58,7 @@ Here's a sample of the `config.json` file:
   "social": {
     "github": "m4tt72",
   },
-  "theme": "OceanDark" // list of themes available in themes.json
+  "theme": "palenight" // list of themes available in themes.json
 }
 ```
 
