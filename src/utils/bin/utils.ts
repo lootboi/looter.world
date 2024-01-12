@@ -19,16 +19,8 @@ export const whoami = async (args: string[]): Promise<string> => {
 // };
 
 export const socials = async (args: string[]): Promise<string> => {
-  return `                                              
-Twitter: <a href="https://twitter.com/AltLoot" target="_blank" class="text-light-blue dark:text-dark-blue underline">@AltLoot</a>
-`;
+  return `Twitter: [@AltLoot](https://twitter.com/AltLoot)`;
 };
-
-// export const donate = async (args?: string[]): Promise<string> => {
-//   window.open(packageJson.funding.url, '_blank');
-
-//   return 'Opening donation url...';
-// };
 
 export const banner = (args?: string[]): string => {
   return `                                              
@@ -36,7 +28,7 @@ export const banner = (args?: string[]): string => {
    / /         ___      ___    __  ___  ___      __    
   / /        //   ) ) //   ) )  / /   //___) ) //  ) ) 
  / /        //   / / //   / /  / /   //       //       
-/ /____/ / ((___/ / ((___/ /  / /   ((____   //       v1.0.0
+/ /____/ / ((___/ / ((___/ /  / /   ((____   //       v1.1.0
 ------------------------------------------------------------
 A collection of my personal projects, thoughts, and opinions
 ------------------------------------------------------------
