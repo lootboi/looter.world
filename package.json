@@ -1,14 +1,10 @@
 {
-  "name": "AltLoot",
+  "name": "altloot",
   "version": "2.13.1",
   "license": "MIT",
   "author": {
     "name": "@AltLoot",
     "url": "https://looter.world"
-  },
-  "funding": {
-    "type": "Paypal",
-    "url": "https://paypal.me/AltLoot"
   },
   "repository": {
     "type": "git",
