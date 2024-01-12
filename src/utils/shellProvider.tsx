@@ -74,6 +74,8 @@ export const ShellProvider: React.FC<ShellProviderProps> = ({ children }) => {
       case 'about':
       case 'projects':
       case 'socials':
+      case 'github':
+      case 'writing':
         return true;
       default:
         return false;
