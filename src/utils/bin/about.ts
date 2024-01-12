@@ -1,4 +1,3 @@
-
 export const about = async (args: string[]): Promise<string> => {
   return `
 I'm [@AltLoot](https://twitter.com/AltLoot) 👋

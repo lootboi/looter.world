@@ -33,7 +33,7 @@ export const Input = ({ inputRef, containerRef }) => {
 
       setValue('');
 
-      setHistory('');
+      setHistory('', false);
 
       setLastCommandIndex(0);
     }
@@ -113,7 +113,10 @@ export const Input = ({ inputRef, containerRef }) => {
         aria-label="prompt"
         style={{
           backgroundColor: theme.background,
-          color: commandExists(value) || value === '' ? theme.brightBlue : theme.blue,
+          color:
+            commandExists(value) || value === ''
+              ? theme.brightBlue
+              : theme.blue,
         }}
         value={value}
         onChange={(event) => setValue(event.target.value)}
