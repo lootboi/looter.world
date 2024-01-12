@@ -7,8 +7,7 @@ interface ShellContextType {
   history: History[];
   command: string;
   lastCommandIndex: number;
-
-  setHistory: (output: string) => void;
+  setHistory: (output: string, useMarkdown: boolean) => void;
   setCommand: (command: string) => void;
   setLastCommandIndex: (index: number) => void;
   execute: (command: string) => Promise<void>;
@@ -40,7 +39,7 @@ export const ShellProvider: React.FC<ShellProviderProps> = ({ children }) => {
     }
   }, [command, init]);
 
-  const setHistory = (output: string) => {
+  const setHistory = (output: string, useMarkdown: boolean) => {
     _setHistory([
       ...history,
       {
@@ -48,6 +47,7 @@ export const ShellProvider: React.FC<ShellProviderProps> = ({ children }) => {
         date: new Date(),
         command: command.split(' ').slice(1).join(' '),
         output,
+        useMarkdown,
       },
     ]);
   };
@@ -66,32 +66,48 @@ export const ShellProvider: React.FC<ShellProviderProps> = ({ children }) => {
     _setLastCommandIndex(index);
   };
 
+  const isMarkdownCommand = (cmd: string) => {
+    switch (cmd) {
+      case 'banner':
+      case 'weather':
+        return false;
+      case 'about':
+      case 'projects':
+      case 'socials':
+        return true;
+      default:
+        return false;
+    }
+  };
+
   const execute = async () => {
     const [cmd, ...args] = command.split(' ').slice(1);
 
     switch (cmd) {
       case 'theme':
         const output = await bin.theme(args, setTheme);
-
-        setHistory(output);
-
+        setHistory(output, false);
         break;
       case 'clear':
         clearHistory();
         break;
       case '':
-        setHistory('');
+        setHistory('', false);
         break;
+      case 'help':
       default: {
         if (Object.keys(bin).indexOf(cmd) === -1) {
-          setHistory(`Command not found: ${cmd}. Try 'help' to get started.`);
+          setHistory(
+            `Command not found: ${cmd}. Try 'help' to get started.`,
+            false,
+          );
         } else {
           try {
             const output = await bin[cmd](args);
-
-            setHistory(output);
+            const useMarkdown = isMarkdownCommand(cmd);
+            setHistory(output, useMarkdown);
           } catch (error) {
-            setHistory(error.message);
+            setHistory(error.message, false);
           }
         }
       }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { History as HistoryInterface } from '../../interfaces/history';
 import { Ps1 } from '../ps1';
+import ReactMarkdown from 'react-markdown';
 
 interface Props {
   history: Array<HistoryInterface>;
@@ -19,11 +20,16 @@ export const History: React.FC<Props> = ({ history }) => {
             <div className="flex-grow">{entry.command}</div>
           </div>
 
-          <p
+          <div
             className="whitespace-pre-wrap mb-2"
             style={{ lineHeight: 'normal' }}
-            dangerouslySetInnerHTML={{ __html: entry.output }}
-          />
+          >
+            {entry.useMarkdown ? (
+              <ReactMarkdown>{entry.output}</ReactMarkdown>
+            ) : (
+              entry.output
+            )}
+          </div>
         </div>
       ))}
     </>

@@ -31,7 +31,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ inputRef }) => {
   return (
     <>
       <Head>
-        <title>Looter | @AltLoot</title>
+        <title>looters world</title>
       </Head>
 
       <div
