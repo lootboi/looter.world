@@ -149,23 +149,25 @@ a:hover {
   width: 1%;
 }
 
-/* ---------- hero (rauno) ---------- */
+/* ---------- ascii banner ---------- */
 
-.hero {
-  position: relative;
+.banner {
+  height: clamp(90px, 19vw, 170px);
   margin: calc(var(--lh) * 2) 0;
-  padding: calc(var(--lh) * 2) 3ch;
-  background: var(--frost);
-  border: var(--line);
+  overflow: hidden;
+  font: 500 10px/10px var(--mono);
+  color: var(--ink);
+  cursor: crosshair;
+  user-select: none;
 }
 
-.hero__text {
-  margin: 0;
-  font: 400 clamp(30px, 6.2vw, 58px) / 1.12 var(--display);
-  letter-spacing: -0.02em;
-}
-.hero__text span {
-  display: block;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* ---------- sections ---------- */
@@ -315,8 +317,9 @@ hr {
   .meta .wide {
     display: none;
   }
-  .hero {
-    padding: var(--lh) 2ch;
+  .banner {
+    font-size: 7px;
+    line-height: 7px;
   }
   .foot {
     flex-direction: column;

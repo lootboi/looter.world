@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
+import AsciiBanner from '../components/AsciiBanner';
 
 const projects = [
   { repo: 'lootbox', note: 'hyperliquid orderbook classes' },
@@ -197,12 +198,9 @@ const IndexPage = () => (
       </tbody>
     </table>
 
-    <header className="hero">
-      <h1 className="hero__text">
-        <span>Trading systems.</span>
-        <span>Execution.</span>
-        <span>Full-stack.</span>
-      </h1>
+    <header>
+      <h1 className="sr-only">looter.world</h1>
+      <AsciiBanner word="LOOTER" />
     </header>
 
     <section className="section" id="about">
