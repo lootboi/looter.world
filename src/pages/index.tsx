@@ -20,6 +20,47 @@ const Repo = ({ repo, note }: { repo: string; note: string }) => (
   </>
 );
 
+type Weather = {
+  place: string;
+  temp: number;
+  high: number;
+  low: number;
+  unit: string;
+  sky: string;
+  wind: number;
+  windUnit: string;
+};
+
+// Served by functions/api/weather.js, which locates the visitor by IP.
+const LocalWeather = () => {
+  const [weather, setWeather] = React.useState<Weather | null>(null);
+  const [failed, setFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    fetch('/api/weather')
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then(setWeather)
+      .catch(() => setFailed(true));
+  }, []);
+
+  if (failed) return <li>the sky is offline</li>;
+  if (!weather) return <li>checking the sky…</li>;
+
+  const { place, temp, high, low, unit, sky, wind, windUnit } = weather;
+  return (
+    <>
+      <li>{place}</li>
+      <li>
+        {temp}
+        {unit} · {sky}
+      </li>
+      <li>
+        H {high}° L {low}° · wind {wind} {windUnit}
+      </li>
+    </>
+  );
+};
+
 // Nav icons: pieces of a trade (candle, order ticket, order book, route).
 const icons = {
   about: (
@@ -248,10 +289,9 @@ const IndexPage = () => (
           </ul>
         </div>
         <div className="box">
-          <div className="box__head">Colophon</div>
-          <ul className="list">
-            <li>JetBrains Mono + Archivo Black</li>
-            <li>hosted on Cloudflare Pages</li>
+          <div className="box__head">Local weather</div>
+          <ul className="list" aria-live="polite">
+            <LocalWeather />
           </ul>
         </div>
       </div>
