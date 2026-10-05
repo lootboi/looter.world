@@ -20,6 +20,64 @@ const Repo = ({ repo, note }: { repo: string; note: string }) => (
   </>
 );
 
+// Nav icons: pieces of a trade (candle, order ticket, order book, route).
+const icons = {
+  about: (
+    <>
+      <rect className="ink" x="15" y="1" width="2" height="30" />
+      <rect className="ink" x="9" y="8" width="14" height="16" />
+    </>
+  ),
+  writing: (
+    <>
+      <path
+        className="ink"
+        d="M5 1 H27 V31 L23.3 28 L19.7 31 L16 28 L12.3 31 L8.7 28 L5 31 Z"
+      />
+      <rect className="cut" x="9" y="7" width="14" height="3" />
+      <rect className="cut" x="9" y="13" width="10" height="3" />
+      <rect className="cut" x="9" y="19" width="12" height="3" />
+    </>
+  ),
+  projects: (
+    <>
+      <rect
+        className="line"
+        strokeWidth="2"
+        x="5"
+        y="2"
+        width="26"
+        height="4"
+      />
+      <rect
+        className="line"
+        strokeWidth="2"
+        x="13"
+        y="9"
+        width="18"
+        height="4"
+      />
+      <rect className="ink" x="11" y="18" width="20" height="5" />
+      <rect className="ink" x="3" y="26" width="28" height="5" />
+    </>
+  ),
+  elsewhere: (
+    <>
+      <path className="line" strokeWidth="3" d="M6 26 H16 V6 H26" />
+      <circle className="ink" cx="6" cy="26" r="5" />
+      <circle className="ink" cx="26" cy="6" r="5" />
+    </>
+  ),
+};
+
+const Glyph = ({ name }: { name: keyof typeof icons }) => (
+  <span className="glyph">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      {icons[name]}
+    </svg>
+  </span>
+);
+
 const IndexPage = () => (
   <div className="page">
     <Head>
@@ -33,7 +91,7 @@ const IndexPage = () => (
         world
       </div>
       <a className="nav__item" href="#about">
-        <span className="glyph glyph--circle" />
+        <Glyph name="about" />
         <span className="nav__label">about</span>
         <span className="nav__sub">
           who
@@ -44,7 +102,7 @@ const IndexPage = () => (
         </span>
       </a>
       <a className="nav__item" href="#writing">
-        <span className="glyph glyph--square" />
+        <Glyph name="writing" />
         <span className="nav__label">writing</span>
         <span className="nav__sub">
           posts
@@ -55,7 +113,7 @@ const IndexPage = () => (
         </span>
       </a>
       <a className="nav__item" href="#projects">
-        <span className="glyph glyph--slash" />
+        <Glyph name="projects" />
         <span className="nav__label">projects</span>
         <span className="nav__sub">
           code
@@ -66,7 +124,7 @@ const IndexPage = () => (
         </span>
       </a>
       <a className="nav__item" href="#elsewhere">
-        <span className="glyph glyph--plus" />
+        <Glyph name="elsewhere" />
         <span className="nav__label">elsewhere</span>
         <span className="nav__sub">
           twitter
@@ -76,9 +134,6 @@ const IndexPage = () => (
           email
         </span>
       </a>
-      <div className="logomark" aria-hidden="true">
-        LT
-      </div>
     </nav>
 
     <table className="meta">
