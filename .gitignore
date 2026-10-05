@@ -48,3 +48,4 @@ _static/
 # build output
 /out
 tsconfig.tsbuildinfo
+.wrangler
