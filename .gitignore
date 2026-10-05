@@ -45,3 +45,6 @@ bin/
 _static/
 
 .vscode/
+# build output
+/out
+tsconfig.tsbuildinfo
