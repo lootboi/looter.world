@@ -274,28 +274,6 @@ const IndexPage = () => (
         </div>
       </div>
     </section>
-
-    <footer className="section">
-      <table className="meta">
-        <tbody>
-          <tr>
-            <td className="meta__title" colSpan={2}>
-              Looter.world
-            </td>
-            <td className="meta__key wide">Version</td>
-            <td className="meta__val wide">v2.0.0</td>
-          </tr>
-          <tr>
-            <td className="meta__key">Author</td>
-            <td>
-              <a href="https://twitter.com/AltLoot">@AltLoot</a>
-            </td>
-            <td className="meta__key wide">Updated</td>
-            <td className="meta__val wide">2026-10-05</td>
-          </tr>
-        </tbody>
-      </table>
-    </footer>
   </div>
 );
 

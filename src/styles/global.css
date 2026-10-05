@@ -122,32 +122,6 @@ a:hover {
   stroke: var(--ink);
 }
 
-/* ---------- header table (monospace web) ---------- */
-
-.meta {
-  width: 100%;
-  border-collapse: collapse;
-}
-.meta td {
-  border: var(--line);
-  padding: calc(var(--lh) / 2 - 2px) 1ch;
-  vertical-align: top;
-}
-.meta__title {
-  font: 800 24px/1.1 var(--mono);
-  text-transform: uppercase;
-}
-.meta__key {
-  font-weight: 800;
-  white-space: nowrap;
-  width: 1%;
-}
-.meta__val {
-  text-align: right;
-  white-space: nowrap;
-  width: 1%;
-}
-
 /* ---------- ascii banner ---------- */
 
 .banner {
@@ -303,9 +277,6 @@ hr {
   }
   .wordmark {
     grid-column: 1 / -1;
-  }
-  .meta .wide {
-    display: none;
   }
   .banner {
     font-size: 7px;
