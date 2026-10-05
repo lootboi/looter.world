@@ -89,10 +89,23 @@ class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/manifest.json" />
-          <meta name="msapplication-TileColor" content="#262626" />
+          <meta name="msapplication-TileColor" content="#004b3b" />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-          <meta name="theme-color" content="#D79921" />
-          <meta name="description" content="swimming in bytes" />
+          <meta name="theme-color" content="#dcf3c6" />
+          <meta
+            name="description"
+            content="Trading systems. Execution. Full-stack."
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin=""
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@500;800&display=swap"
+          />
         </Head>
 
         <body>
