@@ -135,7 +135,61 @@ a:hover {
 }
 
 .ticker {
+  position: relative;
   margin: calc(var(--lh) * -1) 0 calc(var(--lh) * 2);
+}
+.ticker canvas {
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+
+/* fills popup: mint card, forest outline, hard forest shadow */
+.fills {
+  position: absolute;
+  z-index: 5;
+  min-width: 34ch;
+  padding: 8px 1ch;
+  background: var(--mint);
+  border: 2px solid var(--ink);
+  box-shadow: -4px 4px 0 var(--ink);
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.45;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.fills[hidden] {
+  display: none;
+}
+.fills__head {
+  font-weight: 800;
+}
+.fills__head span,
+.fills__sum span,
+.fills__more {
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.fills table {
+  border-collapse: collapse;
+}
+.fills td {
+  padding: 0 1ch 0 0;
+}
+.fills__ohlc td:nth-child(odd) {
+  color: var(--ink-soft);
+}
+.fills__ohlc td:nth-child(even),
+.fills__rows td:nth-child(n + 3) {
+  text-align: right;
+}
+.fills__sum {
+  margin: 4px 0;
+  padding: 4px 0;
+  border-block: 1px dashed var(--ink-soft);
+}
+.fills__rows .sell {
+  color: var(--ink-soft);
 }
 .ticker__head {
   display: flex;
