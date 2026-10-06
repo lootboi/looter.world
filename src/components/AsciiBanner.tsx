@@ -1,4 +1,5 @@
 import React from 'react';
+import { subscribe } from '../lib/btc';
 
 const RAMP = ' .:-=+*#%@';
 
@@ -53,6 +54,19 @@ const AsciiBanner = ({ word }: { word: string }) => {
     let aspect = 1;
     let mask = new Float32Array(0);
     let raf = 0;
+    // Market reactivity: every BTC trade sends a ring through the letters (up-ticks
+    // brighten, down-ticks carve), and bursts of trades speed up the shimmer.
+    type Ring = {
+      x: number;
+      y: number;
+      born: number;
+      amp: number;
+      up: boolean;
+    };
+    const rings: Ring[] = [];
+    let energy = 0;
+    let phase = 0;
+    let lastNow = 0;
 
     const layout = () => {
       const style = getComputedStyle(pre);
@@ -68,6 +82,11 @@ const AsciiBanner = ({ word }: { word: string }) => {
 
     const draw = (now: number) => {
       const t = now / 1000;
+      const dt = lastNow ? Math.min(0.1, t - lastNow) : 0;
+      lastNow = t;
+      energy *= Math.pow(0.05, dt); // fades out over ~1s
+      phase += dt * (1 + energy * 4);
+      while (rings.length && t - rings[0].born > 1.4) rings.shift();
       pointer.strength += (pointer.on - pointer.strength) * (still ? 1 : 0.08);
       let out = '';
       for (let y = 0; y < rows; y++) {
@@ -86,12 +105,32 @@ const AsciiBanner = ({ word }: { word: string }) => {
           const swell = still
             ? 0.5
             : 0.5 +
-              0.5 * Math.sin(x * 0.13 + t * 1.1) * Math.sin(y * 0.4 - t * 0.7);
+              0.5 *
+                Math.sin(x * 0.13 + phase * 1.1) *
+                Math.sin(y * 0.4 - phase * 0.7);
           const ripple = still
             ? 0
             : near * (0.5 + 0.5 * Math.sin(d * 0.9 - t * 7));
+          let trades = 0;
+          for (const ring of rings) {
+            const age = t - ring.born;
+            const off =
+              Math.hypot(x - ring.x, (y - ring.y) * aspect) - age * 30;
+            const wave =
+              ring.amp * Math.exp(-(off * off) / 5) * (1 - age / 1.4);
+            trades += ring.up ? wave : -wave * m;
+          }
           // the swell only shimmers inside the letters; the background stays empty
-          const v = Math.min(1, m * (0.72 + 0.28 * swell) + ripple * 0.55);
+          const lift = Math.min(energy, 1) * 0.15;
+          const v = Math.max(
+            0,
+            Math.min(
+              1,
+              m * (0.72 - lift + (0.28 + lift) * swell) +
+                ripple * 0.55 +
+                trades,
+            ),
+          );
           out += RAMP[Math.floor(v * (RAMP.length - 1))];
         }
         out += '\n';
@@ -123,7 +162,27 @@ const AsciiBanner = ({ word }: { word: string }) => {
       if (still) draw(performance.now());
     });
 
+    const onTick = (tick?: { up: boolean; impulse: number }) => {
+      if (still || !tick || !cols) return;
+      energy = Math.min(1.5, energy + tick.impulse * 0.5);
+      // start the ring somewhere inside the letters
+      let i = 0;
+      for (let tries = 0; tries < 12; tries++) {
+        i = Math.floor(Math.random() * cols * rows);
+        if (mask[i] > 0.5) break;
+      }
+      rings.push({
+        x: i % cols,
+        y: Math.floor(i / cols),
+        born: performance.now() / 1000,
+        amp: 0.35 + tick.impulse * 0.9,
+        up: tick.up,
+      });
+      if (rings.length > 24) rings.shift();
+    };
+
     let cancelled = false;
+    let unsubscribe = () => undefined;
     Promise.all([
       document.fonts.load('400 100px "Archivo Black"'),
       document.fonts.load('500 12px "JetBrains Mono"'),
@@ -131,6 +190,7 @@ const AsciiBanner = ({ word }: { word: string }) => {
       if (cancelled) return;
       layout();
       resize.observe(pre);
+      unsubscribe = subscribe(onTick);
       addEventListener('pointermove', onMove);
       document.documentElement.addEventListener('pointerleave', onLeave);
       if (still) draw(performance.now());
@@ -139,6 +199,7 @@ const AsciiBanner = ({ word }: { word: string }) => {
 
     return () => {
       cancelled = true;
+      unsubscribe();
       cancelAnimationFrame(raf);
       resize.disconnect();
       removeEventListener('pointermove', onMove);
