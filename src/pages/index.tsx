@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import AsciiBanner from '../components/AsciiBanner';
+import BtcChart from '../components/BtcChart';
 
 const projects = [
   { repo: 'lootbox', note: 'hyperliquid orderbook classes' },
@@ -182,6 +183,8 @@ const IndexPage = () => (
       <h1 className="sr-only">looter.world</h1>
       <AsciiBanner word="LOOTER" />
     </header>
+
+    <BtcChart />
 
     <section className="section" id="about">
       <h2 className="label">
